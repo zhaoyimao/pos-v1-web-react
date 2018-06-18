@@ -58,44 +58,42 @@ class App extends Component{
   lookCar(){
     $("#lookcar").click(function(){
       $("#car").show();
+      $("#shop").hide();
     });
   }
   return(){
     $("#return").click(function(){
       $("#car").hide();
+      $("#shop").show();
     })
   }
   buy(){
     $("#car").off().on('click','#buy',function(){
       let data=get_car_goods_Number();
-      $.ajax({
-        contentType: "application/json;charset=utf-8",
-        url: "/api/charts",
-        type: "post",
-        data: data,
-        success: function (data) {
-            console.log(data);
-        }
-    })
+    //   $.ajax({
+    //     contentType: "application/json;charset=utf-8",
+    //     url: "/api/charts",
+    //     type: "post",
+    //     data: data,
+    //     success: function (data) {
+    //         console.log(data);
+    //     }
+    // })
+    console.log(data);
      
     })
   }
   handleClick(){
     $("#good_list").off().on("click", ".addButton", function(event){
      let barcode= $(this).parent().parent().children("td").first().html();
-     //alert(barcode);
      let text=$(this).next().val();
-     //alert(text);
      let goods=getAllByID(barcode);
-     //alert(barcode);
-     alert(goods.name);
   if(text==="请输入数量"){
       goods.count=1;
   }else{
       goods.count=text;
   }
    let count2=get_car_goods(barcode);
-   alert("count2"+count2);
   if(count2===undefined){
   let str="<tr class='goods'><td>"+goods.barcode+"</td><td>"+goods.name+"</td> <td>"+goods.unit+"</td> <td>"+goods.price+"</td><td>"+goods.charge+"</td><td class='count'>"+goods.count+"</td></tr>";
   $("#carList").append(str);
