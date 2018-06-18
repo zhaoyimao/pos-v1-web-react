@@ -67,8 +67,17 @@ class App extends Component{
   }
   buy(){
     $("#car").off().on('click','#buy',function(){
-      let result=get_car_goods_Number();
-      console.log(result);
+      let data=get_car_goods_Number();
+      $.ajax({
+        contentType: "application/json;charset=utf-8",
+        url: "/api/charts",
+        type: "post",
+        data: data,
+        success: function (data) {
+            console.log(data);
+        }
+    })
+     
     })
   }
   handleClick(){
